@@ -1,0 +1,6 @@
+Flask==2.2.2
+Flask_HTTPAuth==4.8.0
+pyperclip==1.8.2
+python-dotenv==1.0.0
+pywin32==306
+pywinauto==0.6.8
