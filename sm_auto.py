@@ -6,6 +6,7 @@ import ctypes
 import win32gui
 import win32api
 import win32process
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from pywinauto import Application
 
@@ -70,7 +71,6 @@ class SuperMemoAutomation:
 
     def __continue_leech_alert(self):
         tleech_manager_dlg = self.app.window(class_name="TLeechManagerDlg")
-        print(tleech_manager_dlg.exists())
         if tleech_manager_dlg.exists():
             tleech_manager_dlg.window(
                 class_name="TBitBtn", title="Continue").click_input()
@@ -244,16 +244,18 @@ class SuperMemoAutomation:
         self.status = 'grade'
 
     def get_status(self):
-        learn_btn = self.telwind.window(class_name='TBitBtn', title="Learn")
-        if learn_btn.exists():
+        def check_exists(title):
+            return self.telwind.window(class_name='TBitBtn', title=title, control_type="Button").exists()
+
+        with ThreadPoolExecutor(max_workers=3) as executor:
+            titles = ["Learn", "Show answer", "Next repetition"]
+            results = list(executor.map(check_exists, titles))
+
+        if results[0]:
             return 'learning'
-        show_answer_btn = self.telwind.window(
-            class_name="TBitBtn", title="Show answer")
-        if show_answer_btn.exists():
+        if results[1]:
             return 'show_answer'
-        next_btn = self.telwind.window(class_name="TBitBtn",
-                                       title="Next repetition")
-        if next_btn.exists():
+        if results[2]:
             return 'next'
 
         return 'grade'
