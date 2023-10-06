@@ -219,7 +219,6 @@ class SuperMemoAutomation:
             show_answer_btn.click_input()
         self.telwind.window(class_name="TBitBtn", found_index=int(
             grade)).click_input()
-        self.status = 'next'
 
     def cancel(self):
         self.telwind.set_focus()
@@ -229,19 +228,15 @@ class SuperMemoAutomation:
     def next(self):
         self.telwind.set_focus()
         self.telwind.window(class_name="TBitBtn",
-                            title="Next repetition").click_input()
+                            title="Next repetition",
+                            control_btn="Button"
+                            ).click_input()
         self.__continue_leech_alert()
-        current_element = self.get_current_element()
-        if current_element['type'] == 'Topic':
-            self.status = 'next'
-        else:
-            self.status = 'show_answer'
 
     def show_answer(self):
         self.telwind.set_focus()
         self.telwind.window(
-            class_name="TBitBtn", title="Show answer").click_input()
-        self.status = 'grade'
+            class_name="TBitBtn", title="Show answer", control_btn="Button").click_input()
 
     def get_status(self):
         def check_exists(title):
@@ -264,11 +259,6 @@ class SuperMemoAutomation:
         self.telwind.set_focus()
         self.telwind.window(class_name='TBitBtn', title="Learn").click_input()
         self.__continue_leech_alert()
-        current_element = self.get_current_element()
-        if current_element['type'] == 'Topic':
-            self.status = 'next'
-        else:
-            self.status = 'show_answer'
 
     def prev_element(self):
         self.telwind.set_focus()

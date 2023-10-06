@@ -165,8 +165,28 @@
         tinymce.init({
           selector: "#editor" + contentId,
           plugins: "link lists",
+          setup: function (editor) {
+            editor.ui.registry.addButton("extract", {
+              text: "📦",
+              onAction: function (_) {
+                var selectedText = editor.selection.getContent();
+                var newContent =
+                  '<span class="extract">' + selectedText + "</span>";
+                editor.selection.setContent(newContent);
+              },
+            }),
+              editor.ui.registry.addButton("cloze", {
+                text: "[...]",
+                onAction: function (_) {
+                  var selectedText = editor.selection.getContent();
+                  var newContent =
+                    '<span class="cloze">' + selectedText + "</span>";
+                  editor.selection.setContent(newContent);
+                },
+              });
+          },
           toolbar:
-            "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link",
+            "undo redo | extract | cloze | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link",
           height: 300,
           content_css: "{{url_for('static', filename='css/contents.css')}}",
           statusbar: false,
