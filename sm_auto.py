@@ -214,29 +214,30 @@ class SuperMemoAutomation:
     def grade(self, grade):
         self.telwind.set_focus()
         show_answer_btn = self.telwind.window(
-            class_name="TBitBtn", title="Show answer")
+            class_name="TBitBtn", title="Show answer", control_type="Button")
         if show_answer_btn.exists():
             show_answer_btn.click_input()
-        self.telwind.window(class_name="TBitBtn", found_index=int(
+        self.telwind.window(class_name="TBitBtn", control_type="Button", found_index=int(
             grade)).click_input()
 
     def cancel(self):
         self.telwind.set_focus()
         self.telwind.window(class_name="TBitBtn",
+                            control_type="Button",
                             found_index=0).click_input()
 
     def next(self):
         self.telwind.set_focus()
         self.telwind.window(class_name="TBitBtn",
                             title="Next repetition",
-                            control_btn="Button"
+                            control_type="Button"
                             ).click_input()
         self.__continue_leech_alert()
 
     def show_answer(self):
         self.telwind.set_focus()
         self.telwind.window(
-            class_name="TBitBtn", title="Show answer", control_btn="Button").click_input()
+            class_name="TBitBtn", title="Show answer", control_type="Button").click_input()
 
     def get_status(self):
         def check_exists(title):
