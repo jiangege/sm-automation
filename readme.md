@@ -6,19 +6,19 @@ This project enables remote control of SuperMemo via UI automation.
 
 Create a `.env` file with your credentials:
 
-\```env
+```env
 MY_APP_USERNAME={username}
 MY_APP_PASSWORD={password}
-\```
+```
 
 ## Installation and Execution
 
 Run the following commands:
 
-\```bash
+```bash
 pip install -r requirements.txt
 python server.py
-\```
+```
 
 Now, your SuperMemo can be controlled remotely. You can access the web panel by opening your web browser and visiting `127.0.0.1:5000`.
 
